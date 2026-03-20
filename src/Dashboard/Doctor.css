@@ -1,0 +1,212 @@
+.doctor-page {
+  background: linear-gradient(170deg, #f4f8ff 0%, #ffffff 45%, #f8f7ff 100%);
+  min-height: 100vh;
+}
+
+.doctor-dashboard {
+  max-width: 1400px;
+}
+
+.doctor-hero {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.doctor-title {
+  color: #0f172a;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  font-weight: 700;
+}
+
+.doctor-subtitle {
+  color: #475569;
+  max-width: 640px;
+}
+
+.doctor-date-badge {
+  background: #e2e8f0;
+  border-radius: 999px;
+  color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  white-space: nowrap;
+}
+
+.doctor-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  height: 100%;
+  padding: 1rem;
+}
+
+.doctor-stat-card.pending {
+  border-left: 5px solid #f59e0b;
+}
+
+.doctor-stat-card.approved {
+  border-left: 5px solid #22c55e;
+}
+
+.doctor-stat-card.rejected {
+  border-left: 5px solid #ef4444;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  color: #0f172a;
+  font-size: 1.85rem;
+  margin: 0;
+}
+
+.doctor-card-shell {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+  padding: 1.1rem;
+}
+
+.doctor-card-header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.doctor-card-header h3,
+.doctor-card-shell h3 {
+  color: #0f172a;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.doctor-table-controls {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 145px minmax(170px, 1fr);
+  width: min(100%, 430px);
+}
+
+.doctor-table thead th {
+  color: #334155;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.doctor-table tbody td {
+  color: #0f172a;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.22rem 0.65rem;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.doctor-profile-list,
+.doctor-schedule-list {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  margin-top: 0.95rem;
+  padding: 0;
+}
+
+.doctor-profile-list li,
+.doctor-schedule-list li {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+}
+
+.doctor-profile-list li span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.doctor-profile-list li strong {
+  color: #0f172a;
+  font-size: 0.89rem;
+  text-align: right;
+}
+
+.slot-time {
+  color: #2563eb;
+  font-size: 0.86rem;
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+}
+
+.slot-task {
+  color: #1e293b;
+  font-size: 0.86rem;
+}
+
+.slot-type {
+  background: #e2e8f0;
+  border-radius: 999px;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+}
+
+@media (max-width: 991.98px) {
+  .doctor-card-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .doctor-table-controls {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .doctor-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .doctor-date-badge {
+    white-space: normal;
+  }
+
+  .doctor-table-controls {
+    grid-template-columns: 1fr;
+  }
+}

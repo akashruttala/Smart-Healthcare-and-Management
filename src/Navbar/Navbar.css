@@ -1,0 +1,35 @@
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#0f172a;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+.nav-links li{
+cursor:pointer;
+font-size:15px;
+}
+
+.nav-links li:hover{
+color:#60a5fa;
+}
+
+.profile{
+background:#2563eb;
+padding:8px 16px;
+border-radius:5px;
+cursor:pointer;
+}
