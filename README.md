@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+<img width="2123" height="1127" alt="image" src="https://github.com/user-attachments/assets/86daaf16-78b9-40b5-acda-432f58ed68c0" /># 🏥 Smart Healthcare and Management System (AI Powered)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack healthcare application built to simplify patient management, appointment scheduling, and record handling. It also includes an AI chatbot to assist users with quick guidance and system navigation.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+### 👨‍⚕️ Patient
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Secure signup and login using JWT authentication
+* Book, view, and manage appointments
+* Access personal medical records and history
+* Interact with AI chatbot for basic health guidance
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🩺 Doctor
 
-### `npm test`
+* View scheduled appointments
+* Manage patient details and medical records
+* Update reports and treatment information
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🛠️ Admin
 
-### `npm run build`
+* Manage patients and doctors
+* View system data through dashboards and charts
+* Monitor overall appointment activity
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🤖 AI Chatbot 🔥
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Answers general healthcare-related questions
+* Helps users navigate the application
+* Provides quick responses to user queries
+* Integrated using Google Gemini API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🧠 Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* React.js
+* Bootstrap
+* Axios
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Spring Boot
+* Spring Security (JWT Authentication)
+* REST APIs
 
-## Learn More
+### Database
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* MySQL
+* Hibernate / JPA
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### AI Integration
 
-### Code Splitting
+* Google Gemini API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🏗️ Architecture
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Frontend (React) → Backend (Spring Boot APIs) → MySQL Database
+→ AI Chatbot (Gemini API)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔐 Security
 
-### Advanced Configuration
+* JWT-based authentication
+* Role-based access (Admin, Doctor, Patient)
+* Secure communication between client and server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## ⚙️ Setup Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 1️⃣ Clone the repository
 
-### `npm run build` fails to minify
+```bash
+git clone https://github.com/akashruttala/Smart-Healthcare-and-Management.git
+cd Smart-Healthcare-and-Management
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+### 2️⃣ Backend setup
+
+```bash
+cd backend
+```
+
+Update `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/healthcare
+spring.datasource.username=root
+spring.datasource.password=your_password
+
+gemini.api.key=YOUR_API_KEY
+```
+
+Run the Spring Boot application.
+
+---
+
+### 3️⃣ Frontend setup
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+
+## 📸 Screenshots
+
+*Add screenshots here (chatbot, dashboard, appointments, etc.)*
+HomeScreen
+<img width="2114" height="1125" alt="image" src="https://github.com/user-attachments/assets/3adf9f73-ef73-4f8b-88ee-4c039b376ca4" />
+Patient Signin
+<img width="2114" height="1095" alt="image" src="https://github.com/user-attachments/assets/69dd4ab4-5d1e-4ec2-be7a-0e3ed838eedb" />
+Patient Dashboard
+<img width="2129" height="1288" alt="image" src="https://github.com/user-attachments/assets/55fd328c-d1b8-4420-8e39-c484cc56ba3a" />
+Book Appointment
+<img width="2086" height="1094" alt="image" src="https://github.com/user-attachments/assets/0f857ab1-b8c1-4f0a-aec8-9592470b6c11" />
+My Appointments
+<img width="2105" height="904" alt="image" src="https://github.com/user-attachments/assets/4976828b-7154-40a8-bc6c-72b0a68f2e25" />
+Doctor Signin
+<img width="2103" height="1098" alt="image" src="https://github.com/user-attachments/assets/62d54900-96a7-40fc-a4ad-b7843f6916d3" />
+Doctor Dashboard
+<img width="2107" height="1124" alt="image" src="https://github.com/user-attachments/assets/87a29510-f646-495e-a088-e2b4b78ffe97" />
+
+---
+
+## 🚀 Future Improvements
+
+* Email or SMS notifications
+* Doctor availability scheduling
+* Smarter AI-based suggestions
+* Cloud deployment
+
+---
+
+## 🧠 What I Learned
+
+* Building full-stack applications (React + Spring Boot)
+* Designing REST APIs
+* Implementing authentication and security
+* Integrating AI into real-world applications
+
+---
+
+## 👨‍💻 Author
+
+**Akash Ruttala**
+📧 [ruttalaakash2@gmail.com](mailto:ruttalaakash2@gmail.com)
+🔗 LinkedIn | GitHub
+
+---
+
+## ⭐ Support
+
+If you found this useful, consider giving it a ⭐
