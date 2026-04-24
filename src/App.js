@@ -8,6 +8,7 @@ import Doctorsignin from './SignIn/Doctorsignin';
 
 import Patient from './Dashboard/Patient';
 import Doctor from './Dashboard/Doctor';
+import Admin from './Dashboard/Admin';
 
 import ViewAppointments from './Pages/ViewAppointments';
 import Profile from './Pages/Profile';
@@ -15,6 +16,8 @@ import Precautions from './Pages/Precautions';
 import BookAppointment from './Pages/BookAppointment';
 
 import Patientsignup from './Signup/Patientsignup';
+import Doctorsignup from './Signup/Doctorsignup';
+import Adminsignin from './SignIn/Adminsignin';
 
 // // import Patientsignup from './Signup/Patientsignup';
 // import Doctorsignin from './Signin/Doctorsignin';
@@ -42,6 +45,10 @@ function App() {
         <Route path="/bookappointment" element={<BookAppointment/>}/>
 
         <Route path="/patient-signup" element={<Patientsignup />} />
+        <Route path="/doctor-signup" element={<Doctorsignup />} />
+        
+        <Route path="/admin-signin" element={<Adminsignin />} />
+        <Route path="/admin" element={<Admin />} />
 
         
         

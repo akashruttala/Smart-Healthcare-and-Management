@@ -4,6 +4,7 @@ import FAQ from "../Components/FAQ";
 import { useNavigate } from "react-router-dom";
 import DoctorsSection from "../Components/DoctorsSection";
 import Footer from "../Components/Footer";
+import Chatbot from "../Components/Chatbot";
 
 
 function PatientDashboard() {
@@ -36,6 +37,8 @@ function PatientDashboard() {
       <DoctorsSection/>
       <FAQ/>
       <Footer/>
+      
+      <Chatbot />
 
     </div>
   );

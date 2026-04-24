@@ -1,45 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import DoctorNavbar from "../Navbar/DoctorNavbar";
+import { useNavigate } from "react-router-dom";
+import api from "../API/api";
 import "./Doctor.css";
-
-const initialAppointments = [
-  {
-    id: 1,
-    patient: "Akash Sharma",
-    age: 21,
-    date: "Mar 10, 2026",
-    time: "10:00 AM",
-    reason: "Fever and fatigue",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    patient: "Rahul Mehta",
-    age: 32,
-    date: "Mar 10, 2026",
-    time: "11:00 AM",
-    reason: "Skin allergy",
-    status: "Approved",
-  },
-  {
-    id: 3,
-    patient: "Priya Nair",
-    age: 27,
-    date: "Mar 10, 2026",
-    time: "12:30 PM",
-    reason: "Migraine follow-up",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    patient: "Sahil Verma",
-    age: 44,
-    date: "Mar 11, 2026",
-    time: "09:15 AM",
-    reason: "Blood pressure check",
-    status: "Rejected",
-  },
-];
 
 const schedule = [
   { time: "09:00 AM", task: "Ward Round", type: "Hospital" },
@@ -50,30 +13,59 @@ const schedule = [
 ];
 
 export default function Doctor() {
-  const [appointments, setAppointments] = useState(initialAppointments);
+  const [appointments, setAppointments] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState("All");
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
 
-  const updateStatus = (id, newStatus) => {
-    setAppointments((prev) =>
-      prev.map((appointment) =>
-        appointment.id === id
-          ? { ...appointment, status: newStatus }
-          : appointment
-      )
-    );
+  useEffect(() => {
+    const profileId = localStorage.getItem('profileId');
+    if (!profileId) {
+      alert("Please login first.");
+      navigate("/doctor-signin");
+      return;
+    }
+    
+    api.get(`/appointments/doctor/${profileId}?page=${page}&size=5`)
+      .then(res => {
+          setAppointments(res.data.content || []);
+          setTotalPages(res.data.totalPages || 1);
+      })
+      .catch(err => console.error("Error fetching appointments:", err));
+  }, [navigate, page]);
+
+  const updateStatus = async (id, newStatus) => {
+    const apiStatus = newStatus === 'Approved' ? 'ACCEPTED' : (newStatus === 'Rejected' ? 'REJECTED' : 'PENDING');
+    try {
+        await api.put(`/appointments/${id}/status?status=${apiStatus}`);
+        setAppointments((prev) =>
+          prev.map((appointment) =>
+            appointment.id === id
+              ? { ...appointment, status: apiStatus }
+              : appointment
+          )
+        );
+    } catch(err) {
+        console.error(err);
+        alert("Failed to update status");
+    }
   };
 
   const filteredAppointments = useMemo(() => {
     return appointments.filter((appointment) => {
+      const displayStatus = appointment.status === 'ACCEPTED' ? 'Approved' : appointment.status === 'REJECTED' ? 'Rejected' : 'Pending';
       const matchesStatus =
-        statusFilter === "All" || appointment.status === statusFilter;
+        statusFilter === "All" || displayStatus === statusFilter;
 
       const query = searchText.trim().toLowerCase();
+      const patientName = appointment.patient?.name || "";
+      const reason = appointment.reason || "";
       const matchesQuery =
         query.length === 0 ||
-        appointment.patient.toLowerCase().includes(query) ||
-        appointment.reason.toLowerCase().includes(query);
+        patientName.toLowerCase().includes(query) ||
+        reason.toLowerCase().includes(query);
 
       return matchesStatus && matchesQuery;
     });
@@ -81,13 +73,13 @@ export default function Doctor() {
 
   const totalAppointments = appointments.length;
   const approvedCount = appointments.filter(
-    (appointment) => appointment.status === "Approved"
+    (appointment) => appointment.status === "ACCEPTED"
   ).length;
   const pendingCount = appointments.filter(
-    (appointment) => appointment.status === "Pending"
+    (appointment) => appointment.status === "PENDING"
   ).length;
   const rejectedCount = appointments.filter(
-    (appointment) => appointment.status === "Rejected"
+    (appointment) => appointment.status === "REJECTED"
   ).length;
 
   return (
@@ -97,12 +89,7 @@ export default function Doctor() {
       <main className="doctor-dashboard container-fluid px-3 px-md-4 py-4">
         <section className="doctor-hero mb-4">
           <div>
-            <h2>Welcome back Dr. Rakesh</h2>
-            {/*5<h1 className="doctor-title mb-1">Doctor Dashboard</h1> */}
-            {/* <h5 className="doctor-subtitle mb-0">
-              Manage appointments, track schedule, and review your daily
-              progress.
-            </h5> */}
+            <h2>Welcome back Doctor</h2>
           </div>
           
           <span className="doctor-date-badge">
@@ -175,29 +162,31 @@ export default function Doctor() {
                       <th>Patient</th>
                       <th>Age</th>
                       <th>Date</th>
-                      <th>Time</th>
                       <th>Reason</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredAppointments.map((appointment) => (
+                    {filteredAppointments.map((appointment) => {
+                      const displayStatus = appointment.status === 'ACCEPTED' ? 'Approved' : appointment.status === 'REJECTED' ? 'Rejected' : 'Pending';
+                      return (
                       <tr key={appointment.id}>
-                        <td>{appointment.patient}</td>
-                        <td>{appointment.age}</td>
-                        <td>{appointment.date}</td>
-                        <td>{appointment.time}</td>
+                        <td>{appointment.patient?.name}</td>
+                        <td>{appointment.patient?.age}</td>
+                        <td>{new Date(appointment.appointmentDate).toLocaleString()}</td>
                         <td>{appointment.reason}</td>
                         <td>
                           <span
-                            className={`status-badge ${appointment.status.toLowerCase()}`}
+                            className={`status-badge ${displayStatus.toLowerCase()}`}
                           >
-                            {appointment.status}
+                            {displayStatus}
                           </span>
                         </td>
                         <td>
                           <div className="d-flex gap-2">
+                            {appointment.status === 'PENDING' && (
+                            <>
                             <button
                               className="btn btn-success btn-sm"
                               onClick={() =>
@@ -214,13 +203,16 @@ export default function Doctor() {
                             >
                               Reject
                             </button>
+                            </>
+                            )}
                           </div>
                         </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                     {filteredAppointments.length === 0 && (
                       <tr>
-                        <td colSpan="7" className="text-center py-4">
+                        <td colSpan="6" className="text-center py-4">
                           No appointments found for current filters.
                         </td>
                       </tr>
@@ -228,6 +220,14 @@ export default function Doctor() {
                   </tbody>
                 </table>
               </div>
+
+              {totalPages > 1 && (
+                <div className="d-flex justify-content-center mt-3 mb-3">
+                  <button className="btn btn-outline-primary mx-2 btn-sm" disabled={page === 0} onClick={() => setPage(p => p - 1)}>Previous</button>
+                  <span className="mx-3 align-self-center">Page {page + 1} of {totalPages}</span>
+                  <button className="btn btn-outline-primary mx-2 btn-sm" disabled={page === totalPages - 1} onClick={() => setPage(p => p + 1)}>Next</button>
+                </div>
+              )}
             </article>
           </div>
 
@@ -238,7 +238,7 @@ export default function Doctor() {
                 <ul className="doctor-profile-list mb-0">
                   <li>
                     <span>Name</span>
-                    <strong>Dr. Rakesh Kumar</strong>
+                    <strong>Doctor</strong>
                   </li>
                   <li>
                     <span>Specialization</span>
@@ -246,7 +246,7 @@ export default function Doctor() {
                   </li>
                   <li>
                     <span>Experience</span>
-                    <strong>12 Years</strong>
+                    <strong>10 Years</strong>
                   </li>
                   <li>
                     <span>Availability</span>

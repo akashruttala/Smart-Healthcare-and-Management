@@ -3,16 +3,15 @@ import { useNavigate, Link } from 'react-router-dom';
 import api from '../API/api';
 import '../SignIn/Auth.css';
 
-export default function Patientsignup() {
+export default function Doctorsignup() {
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
     password: "",
     name: "",
-    age: "",
-    place: "",
-    gender: "",
-    comment: ""
+    specialty: "",
+    experience: "",
+    consultationFee: ""
   });
 
   const handleChange = (e) => {
@@ -22,9 +21,16 @@ export default function Patientsignup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/auth/patient/register', data);
-      alert("Registration successful! You can now login.");
-      navigate("/patient-signin");
+      // Create a payload with correct types based on backend expectations
+      const payload = {
+        ...data,
+        experience: parseInt(data.experience, 10),
+        consultationFee: parseFloat(data.consultationFee)
+      };
+      
+      await api.post('/auth/doctor/register', payload);
+      alert("Doctor registration successful! You can now login.");
+      navigate("/doctor-signin");
     } catch (err) {
       console.error(err);
       if (!err.response) {
@@ -39,8 +45,8 @@ export default function Patientsignup() {
   return (
     <div className="auth-wrapper" style={{ padding: '3rem 1rem' }}>
       <div className="auth-card" style={{ maxWidth: '550px' }}>
-        <h2 className="auth-title">Create Account</h2>
-        <p className="auth-subtitle">Join us to manage your health easily</p>
+        <h2 className="auth-title">Doctor Registration</h2>
+        <p className="auth-subtitle">Join as a healthcare provider</p>
 
         <form onSubmit={handleSubmit}>
           
@@ -60,41 +66,27 @@ export default function Patientsignup() {
             <input type="text" name="name" className="auth-input" value={data.name} onChange={handleChange} required />
           </div>
 
+          <div className="auth-input-group">
+            <label className="auth-input-label">Specialty</label>
+            <input type="text" name="specialty" className="auth-input" value={data.specialty} onChange={handleChange} required placeholder="e.g. Cardiologist, Dentist" />
+          </div>
+
           <div className="row">
             <div className="col-md-6 auth-input-group">
-              <label className="auth-input-label">Age</label>
-              <input type="number" name="age" className="auth-input" value={data.age} onChange={handleChange} required />
+              <label className="auth-input-label">Years of Experience</label>
+              <input type="number" name="experience" className="auth-input" value={data.experience} onChange={handleChange} required min="0" />
             </div>
             <div className="col-md-6 auth-input-group">
-              <label className="auth-input-label">Gender</label>
-              <div className="auth-radio-group">
-                <label className="auth-radio-label">
-                  <input type="radio" name="gender" value="male" checked={data.gender === "male"} onChange={handleChange} required /> 
-                  Male
-                </label>
-                <label className="auth-radio-label">
-                  <input type="radio" name="gender" value="female" checked={data.gender === "female"} onChange={handleChange} required /> 
-                  Female
-                </label>
-              </div>
+              <label className="auth-input-label">Consultation Fee ($)</label>
+              <input type="number" name="consultationFee" className="auth-input" value={data.consultationFee} onChange={handleChange} required min="0" step="0.01" />
             </div>
           </div>
 
-          <div className="auth-input-group">
-            <label className="auth-input-label">City/Place</label>
-            <input type="text" name="place" className="auth-input" value={data.place} onChange={handleChange} required />
-          </div>
-
-          <div className="auth-input-group">
-            <label className="auth-input-label">Any Existing Medical Conditions (Optional)</label>
-            <textarea name="comment" className="auth-input" value={data.comment} onChange={handleChange} rows="3" />
-          </div>
-
-          <button type="submit" className="auth-btn">Register</button>
+          <button type="submit" className="auth-btn">Register as Doctor</button>
           
           <p className="auth-link-text">
             Already have an account? 
-            <Link to="/patient-signin" className="auth-link">Sign in</Link>
+            <Link to="/doctor-signin" className="auth-link">Sign in</Link>
           </p>
 
         </form>
