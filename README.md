@@ -1,4 +1,4 @@
-<img width="2123" height="1127" alt="image" src="https://github.com/user-attachments/assets/86daaf16-78b9-40b5-acda-432f58ed68c0" /># 🏥 Smart Healthcare and Management System (AI Powered)
+<img width="2114" height="1125" alt="image" src="https://github.com/user-attachments/assets/3adf9f73-ef73-4f8b-88ee-4c039b376ca4" /># 🏥 Smart Healthcare and Management System (AI Powered)
 
 A full-stack healthcare application built to simplify patient management, appointment scheduling, and record handling. It also includes an AI chatbot to assist users with quick guidance and system navigation.
 
@@ -115,10 +115,6 @@ npm start
 
 
 ## 📸 Screenshots
-
-*Add screenshots here (chatbot, dashboard, appointments, etc.)*
-HomeScreen
-<img width="2114" height="1125" alt="image" src="https://github.com/user-attachments/assets/3adf9f73-ef73-4f8b-88ee-4c039b376ca4" />
 Patient Signin
 <img width="2114" height="1095" alt="image" src="https://github.com/user-attachments/assets/69dd4ab4-5d1e-4ec2-be7a-0e3ed838eedb" />
 Patient Dashboard
